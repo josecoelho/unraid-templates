@@ -13,7 +13,7 @@
   <Category>Tools: Network:Other Status:Beta</Category>
   <WebUI>http://[IP]:[PORT:631]/</WebUI>
   <TemplateURL/>
-  <Icon>https://www.cups.org/apple-touch-icon.png</Icon>
+  <Icon>https://raw.githubusercontent.com/josecoelho/unraid-templates/main/cups/cups.png</Icon>
   <ExtraParams>--restart=always</ExtraParams>
   <PostArgs/>
   <CPUset/>
