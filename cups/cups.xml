@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>cups</Name>
+  <Repository>tigerj/cups-airprint</Repository>
+  <Registry>https://hub.docker.com/r/tigerj/cups-airprint</Registry>
+  <Network>host</Network>
+  <MyIP/>
+  <Shell>bash</Shell>
+  <Privileged>false</Privileged>
+  <Support/>
+  <Project/>
+  <Overview>This Ubuntu-based Docker image runs a CUPS instance that is meant as an AirPrint relay for printers that are already on the network but not AirPrint capable. The local Avahi will be utilized for advertising the printers on the network.</Overview>
+  <Category>Tools: Network:Other Status:Beta</Category>
+  <WebUI>http://[IP]:[PORT:631]/</WebUI>
+  <TemplateURL/>
+  <Icon>https://www.cups.org/apple-touch-icon.png</Icon>
+  <ExtraParams>--restart=always</ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled>1640033323</DateInstalled>
+  <DonateText/>
+  <DonateLink/>
+  <Description>This Ubuntu-based Docker image runs a CUPS instance that is meant as an AirPrint relay for printers that are already on the network but not AirPrint capable. The local Avahi will be utilized for advertising the printers on the network.</Description>
+  <Networking>
+    <Mode>host</Mode>
+    <Publish/>
+  </Networking>
+  <Data>
+    <Volume>
+      <HostDir>/var/run/dbus</HostDir>
+      <ContainerDir>/var/run/dbus</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+    <Volume>
+      <HostDir>/mnt/user/appdata/cups/config</HostDir>
+      <ContainerDir>/config</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+    <Volume>
+      <HostDir>/mnt/user/appdata/cups/services</HostDir>
+      <ContainerDir>/services</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+    <Volume>
+      <HostDir>/mnt/user/appdata/cups/logs</HostDir>
+      <ContainerDir>/var/log/cups</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+  </Data>
+  <Environment>
+    <Variable>
+      <Value>admin</Value>
+      <Name>CUPSADMIN</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value>password</Value>
+      <Name>CUPSPASSWORD</Name>
+      <Mode/>
+    </Variable>
+  </Environment>
+  <Labels/>
+  <Config Name="USB mapping" Target="/var/run/dbus" Default="/var/run/dbus" Mode="rw" Description="Container Path: /var/run/dbus" Type="Path" Display="always" Required="false" Mask="false">/var/run/dbus</Config>
+  <Config Name="CUPSADMIN" Target="CUPSADMIN" Default="" Mode="" Description="User to access web" Type="Variable" Display="always" Required="false" Mask="false">admin</Config>
+  <Config Name="CUPSPASSWORD" Target="CUPSPASSWORD" Default="password" Mode="" Description="User password" Type="Variable" Display="always" Required="false" Mask="false">password</Config>
+  <Config Name="BUS" Target="" Default="" Mode="" Description="Container Device: " Type="Device" Display="always" Required="false" Mask="false">/dev/bus</Config>
+  <Config Name="Printer USB" Target="" Default="" Mode="" Description="USB path to your printer.&#13;&#10;Run `lsusb` and find your printer.&#13;&#10;&#13;&#10;E.g.: Bus 003 Device 009: ID 03f0:c111 Hewlett-Packard Deskjet 1510&#13;&#10;&#13;&#10;It's the Bus 003 Device 009, so the path to is should be: /dev/bus/usb/003/009" Type="Device" Display="always" Required="false" Mask="false">/dev/bus/usb/003/009</Config>
+  <Config Name="Config file" Target="/config" Default="/mnt/user/appdata/cups/config" Mode="rw" Description="Path to save configuration data" Type="Path" Display="always" Required="false" Mask="false">/mnt/user/appdata/cups/config</Config>
+  <Config Name="Services file" Target="/services" Default="/mnt/user/appdata/cups/services" Mode="rw" Description="Path to store services data" Type="Path" Display="always" Required="false" Mask="false">/mnt/user/appdata/cups/services</Config>
+  <Config Name="Logs" Target="/var/log/cups" Default="/mnt/user/appdata/cups/logs" Mode="rw" Description="Map logs to appdata" Type="Path" Display="always" Required="false" Mask="false">/mnt/user/appdata/cups/logs</Config>
+</Container>
