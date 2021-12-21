@@ -7,7 +7,7 @@
   <MyIP/>
   <Shell>bash</Shell>
   <Privileged>false</Privileged>
-  <Support/>
+  <Support>https://forums.unraid.net/topic/117514-support-cups-docker-repository/</Support>
   <Project/>
   <Overview>Docker image including CUPS print server and printing drivers (installed from the Debian packages).&#xD;
 &#xD;
