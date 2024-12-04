@@ -4,36 +4,38 @@
   <Repository>josercoelho/quartz</Repository>
   <Registry>https://hub.docker.com/r/josercoelho/quartz</Registry>
   <Network>bridge</Network>
-  <MyIP/>
   <Shell>bash</Shell>
   <Privileged>false</Privileged>
   <Support>https://github.com/jackyzha0/quartz</Support>
   <Project>https://github.com/jackyzha0/quartz</Project>
-  <Overview>Quartz is a fast, batteries-included static-site generator that transforms Markdown content into beautiful websites.&#xD;
-&#xD;
-Key features:&#xD;
-- Full-text search&#xD;
-- Graph visualization&#xD;
-- Wikilink support&#xD;
-- Beautiful and fast interface&#xD;
-&#xD;
-Connect to the web interface at http://[IP]:[PORT:8080]</Overview>
+  <Overview>
+    Quartz is a fast, batteries-included static-site generator that transforms Markdown content into beautiful websites. Key features: Full-text search, Graph v
+    isualization, Wikilink support, Beautiful and fast interface
+
+    This version allows you to mount a directory containing your markdown files, and it will generate a website from it.
+    You can have your own quartz code at /mnt/user/appdata/quartz it will be copied to the container before starting quartz.
+
+    For example, if you only want to change quarts.config.ts, you can create the file at /mnt/user/apppdata/quartz/quartz.config.ts and quartz will use it.
+    If you want your own quartz repository, you can clone your repository at /mnt/user/appdata/quartz and quartz will use it.
+
+    Using your own quartz repository:
+    # git clone https://github.com/josecoelho/quartz.git /mnt/user/appdata/quartz
+  </Overview>
   <Category>Productivity: Tools:</Category>
-  <WebUI>http://[IP]:[PORT:8080]/</WebUI>
-  <TemplateURL/>
+  <WebUI>http://[IP]:[PORT:8085]/</WebUI>
   <Icon>https://raw.githubusercontent.com/jackyzha0/quartz/hugo/static/icon.png</Icon>
-  <ExtraParams/>
-  <PostArgs/>
-  <CPUset/>
-  <DateInstalled/>
-  <DonateText>Support Quartz Development</DonateText>
-  <DonateLink>https://github.com/sponsors/jackyzha0</DonateLink>
-  <Description>Quartz is a fast, batteries-included static-site generator that transforms Markdown content into beautiful websites.</Description>
+  <ExtraParams>--entrypoint=/bin/sh</ExtraParams>
+  <PostArgs>
+   -c &quot;cp -n /usr/src/app/quartz.config.ts /usr/src/app/quartz.layout.ts /mnt/host-quartz/ &amp;&amp; 
+      cp -rf /mnt/host-quartz/* /usr/src/app/ &amp;&amp;
+   exec npx quartz build --serve&quot;
+  </PostArgs>
+  <Description>Quartz turns your Markdown notes into a beautiful website.</Description>
   <Networking>
     <Mode>bridge</Mode>
     <Publish>
       <Port>
-        <HostPort>8080</HostPort>
+        <HostPort>8085</HostPort>
         <ContainerPort>8080</ContainerPort>
         <Protocol>tcp</Protocol>
       </Port>
@@ -41,32 +43,17 @@ Connect to the web interface at http://[IP]:[PORT:8080]</Overview>
   </Networking>
   <Data>
     <Volume>
-      <HostDir>/mnt/user/appdata/quartz/content</HostDir>
-      <ContainerDir>/usr/src/app/content</ContainerDir>
+      <HostDir>/mnt/user/appdata/quartz/</HostDir>
+      <ContainerDir>/mnt/host-quartz</ContainerDir>
       <Mode>rw</Mode>
     </Volume>
+    <Volume>
+      <HostDir>/path/to/your/content</HostDir>
+      <ContainerDir>/usr/src/app/content</ContainerDir>
+      <Mode>ro</Mode>
+    </Volume>
   </Data>
-  <Environment>
-    <Variable>
-      <Value>username/repo</Value>
-      <Name>QUARTZ_CONFIG_REPO</Name>
-      <Mode/>
-    </Variable>
-    <Variable>
-      <Value>main</Value>
-      <Name>QUARTZ_CONFIG_BRANCH</Name>
-      <Mode/>
-    </Variable>
-    <Variable>
-      <Value>quartz.config.ts</Value>
-      <Name>QUARTZ_CONFIG_PATH</Name>
-      <Mode/>
-    </Variable>
-  </Environment>
-  <Labels/>
-  <Config Name="Web Interface" Target="8080" Default="8080" Mode="tcp" Description="Container Port: 8080" Type="Port" Display="always" Required="true" Mask="false">8080</Config>
-  <Config Name="Content Directory" Target="/usr/src/app/content" Default="/mnt/user/appdata/quartz/content" Mode="rw" Description="Directory containing your markdown files" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/quartz/content</Config>
-  <Config Name="Config Repository" Target="QUARTZ_CONFIG_REPO" Default="username/repo" Mode="" Description="GitHub repository containing your quartz.config.ts" Type="Variable" Display="always" Required="true" Mask="false">username/repo</Config>
-  <Config Name="Config Branch" Target="QUARTZ_CONFIG_BRANCH" Default="main" Mode="" Description="Branch containing your config file" Type="Variable" Display="always" Required="false" Mask="false">main</Config>
-  <Config Name="Config Path" Target="QUARTZ_CONFIG_PATH" Default="quartz.config.ts" Mode="" Description="Path to your config file in the repository" Type="Variable" Display="always" Required="false" Mask="false">quartz.config.ts</Config>
+  <Config Name="Web Interface" Target="8080" Default="8085" Mode="tcp" Description="Web interface port" Type="Port" Display="always" Required="true" Mask="false">8085</Config>
+  <Config Name="Content Directory" Target="/usr/src/app/content" Default="" Mode="ro" Description="Directory containing your markdown files" Type="Path" Display="always" Required="true" Mask="false"></Config>
+  <Config Name="Local Quartz Directory" Target="/mnt/host-quartz" Default="/mnt/user/appdata/quartz" Mode="rw" Description="Directory containing your config files, all these files will be copied to the root of quartz" Type="Path" Display="always" Required="true" Mask="false"></Config>
 </Container>
