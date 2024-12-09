@@ -12,8 +12,6 @@
     Quartz is a fast, batteries-included static-site generator that transforms Markdown content into beautiful websites. Key features: Full-text search, Graph v
     isualization, Wikilink support, Beautiful and fast interface
 
-    To mount your own quartz repository, you can check your Repository at /mnt/appdata/quartz and that will be the version used.
-
     Using your own quartz repository:
     # git clone https://github.com/josecoelho/quartz.git /mnt/user/appdata/quartz
   </Overview>
@@ -45,5 +43,5 @@
   </Data>
   <Config Name="Web Interface" Target="8080" Default="8085" Mode="tcp" Description="Web interface port" Type="Port" Display="always" Required="true" Mask="false">8085</Config>
   <Config Name="Content Directory" Target="/usr/src/app/content" Default="" Mode="ro" Description="Directory containing your markdown files" Type="Path" Display="always" Required="true" Mask="false"></Config>
-  <Config Name="Local Quartz Directory" Target="/mnt/host-quartz" Default="/mnt/user/appdata/quartz" Mode="rw" Description="Directory containing your config files, all these files will be copied to the root of quartz" Type="Path" Display="always" Required="true" Mask="false"></Config>
+  <Config Name="Local Quartz Directory" Target="/mnt/src/app" Default="/mnt/user/appdata/quartz" Mode="rw" Description="Directory containing all quartz files. You can checkout your won repository to this folder" Type="Path" Display="always" Required="true" Mask="false"></Config>
 </Container>
