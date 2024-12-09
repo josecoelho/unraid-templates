@@ -6,17 +6,13 @@
   <Network>bridge</Network>
   <Shell>bash</Shell>
   <Privileged>false</Privileged>
-  <Support>https://github.com/jackyzha0/quartz</Support>
+  <Support>https://github.com/josecoelho/quartz/issues</Support>
   <Project>https://github.com/jackyzha0/quartz</Project>
   <Overview>
     Quartz is a fast, batteries-included static-site generator that transforms Markdown content into beautiful websites. Key features: Full-text search, Graph v
     isualization, Wikilink support, Beautiful and fast interface
 
-    This version allows you to mount a directory containing your markdown files, and it will generate a website from it.
-    You can have your own quartz code at /mnt/user/appdata/quartz it will be copied to the container before starting quartz.
-
-    For example, if you only want to change quarts.config.ts, you can create the file at /mnt/user/apppdata/quartz/quartz.config.ts and quartz will use it.
-    If you want your own quartz repository, you can clone your repository at /mnt/user/appdata/quartz and quartz will use it.
+    To mount your own quartz repository, you can check your Repository at /mnt/appdata/quartz and that will be the version used.
 
     Using your own quartz repository:
     # git clone https://github.com/josecoelho/quartz.git /mnt/user/appdata/quartz
@@ -24,12 +20,6 @@
   <Category>Productivity: Tools:</Category>
   <WebUI>http://[IP]:[PORT:8085]/</WebUI>
   <Icon>https://raw.githubusercontent.com/jackyzha0/quartz/hugo/static/icon.png</Icon>
-  <ExtraParams>--entrypoint=/bin/sh</ExtraParams>
-  <PostArgs>
-   -c &quot;cp -n /usr/src/app/quartz.config.ts /usr/src/app/quartz.layout.ts /mnt/host-quartz/ &amp;&amp; 
-      cp -rf /mnt/host-quartz/* /usr/src/app/ &amp;&amp;
-   exec npx quartz build --serve&quot;
-  </PostArgs>
   <Description>Quartz turns your Markdown notes into a beautiful website.</Description>
   <Networking>
     <Mode>bridge</Mode>
@@ -44,7 +34,7 @@
   <Data>
     <Volume>
       <HostDir>/mnt/user/appdata/quartz/</HostDir>
-      <ContainerDir>/mnt/host-quartz</ContainerDir>
+      <ContainerDir>/usr/src/app/</ContainerDir>
       <Mode>rw</Mode>
     </Volume>
     <Volume>
